@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title BraintreeExpressExample
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="/stylesheets/app.css")
+    link(rel="stylesheet", href="/stylesheets/overrides.css")
+  body
+    header.main
+      .container.wide
+        .content.slim
+          .set
+            .fill
+              a.pseudoshop(href='/') 
+                img(src="https://vf2.vetfriends.com/veteranTrust/images/shared/VF%20Logo%20New1.svg" alt="VetFriends Logo" style='width: 200px;')
+            .fit
+              a.braintree(href='https://developers.braintreepayments.com/guides/drop-in', target='_blank') Powered by Braintree
+
+      .notice-wrapper
+        if messages && messages.length > 0
+          .show.notice.error.notice-error
+            for msg in messages
+              span.notice-message= msg.msg
+
+    block content
+
+    script(type="text/javascript", src="/javascript/demo.js")
