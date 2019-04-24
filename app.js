@@ -14,7 +14,7 @@ var routes = require('./routes/index');
 
 var app = express();
 
-
+const port=process.env.PORT || 3000
 
 var allowedOrigins = ['http://localhost:8500', 'http://vf2.vetfriends.com','https://vf2.vetfriends.com/catalog/billing-shippingBT-part1alt.cfm', null];
 
@@ -98,3 +98,8 @@ app.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
 });
 
 module.exports = app;
+
+
+server.listen(port,() => {
+console.log(`Server running at port `+port);
+});
