@@ -63,6 +63,11 @@ router.post('/checkouts/new', function (req, res) {
   });
 });
 
+app.post('/postRouter', (request, response) => {
+  const postBody = request.body;
+  console.log(postBody);
+});
+
 router.get('/checkouts/:id', function (req, res) {
   var result;
   var transactionId = req.params.id;
