@@ -53,7 +53,9 @@ app.set('view engine', 'pug');
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
+
+
 app.use(cookieParser());
 app.use(session({
   // this string is not an appropriate value for a production environment
