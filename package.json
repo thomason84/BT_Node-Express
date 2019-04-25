@@ -2,6 +2,7 @@
   "name": "braintree_express_example",
   "version": "0.0.0",
   "private": true,
+  "main": "app.js",
   "scripts": {
     "lint": "eslint .",
     "start": "node app.js",
