@@ -5,6 +5,9 @@ var braintree = require('braintree');
 var router = express.Router(); // eslint-disable-line new-cap
 var gateway = require('../lib/gateway');
 
+var session = require('express-session');
+var MemoryStore = require('connect').session.MemoryStore
+
 var TRANSACTION_SUCCESS_STATUSES = [
   braintree.Transaction.Status.Authorizing,
   braintree.Transaction.Status.Authorized,
