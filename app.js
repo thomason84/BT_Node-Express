@@ -14,10 +14,10 @@ var routes = require('./routes/index');
 
 var app = express();
 
-const port = process.env.PORT || 8000;
 
-app.listen(port, () => {
-    console.log("App is running on port " + port);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
 });
 
 var allowedOrigins = ['http://localhost:8500', 'https://vf2.vetfriends.com','https://vf2.vetfriends.com/catalog/billing-shippingBT-part1alt.cfm', 'null'];
