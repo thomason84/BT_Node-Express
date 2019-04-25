@@ -5,9 +5,6 @@ var braintree = require('braintree');
 var router = express.Router(); // eslint-disable-line new-cap
 var gateway = require('../lib/gateway');
 
-var session = require('express-session');
-var MemoryStore = require('connect').session.MemoryStore
-
 var TRANSACTION_SUCCESS_STATUSES = [
   braintree.Transaction.Status.Authorizing,
   braintree.Transaction.Status.Authorized,
@@ -64,11 +61,6 @@ router.post('/checkouts/new', function (req, res) {
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
   });
-});
-
-router.post('/postRouter', (request, response) => {
-  const postBody = request.body;
-  console.log(postBody);
 });
 
 router.get('/checkouts/:id', function (req, res) {
