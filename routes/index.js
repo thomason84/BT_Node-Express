@@ -63,7 +63,7 @@ router.post('/checkouts/new', function (req, res) {
   });
 });
 
-app.post('/postRouter', (request, response) => {
+router.post('/postRouter', (request, response) => {
   const postBody = request.body;
   console.log(postBody);
 });
