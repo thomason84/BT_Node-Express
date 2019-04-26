@@ -51,6 +51,11 @@ router.get('/', function (req, res) {
   res.redirect('/checkouts/new');
 });
 
+router.post('/', function (req, res) {
+    const amt = 'this is the amount of the const';
+  res.redirect('/checkouts/new');
+});
+
 router.get('/checkouts/new', function (req, res) {
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
