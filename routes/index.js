@@ -51,11 +51,6 @@ router.get('/', function (req, res) {
   res.redirect('/checkouts/new');
 });
 
-router.post('/', function (req, res) {
-    const amt = 'this is the amount of the const';
-  res.redirect('/checkouts/new');
-});
-
 router.get('/checkouts/new', function (req, res) {
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
@@ -79,6 +74,33 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 router.post('/checkouts', function (req, res) {
+    function getQueryStrings() { 
+      var assoc  = {};
+      var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+      var queryString = location.search.substring(1); 
+      var keyValues = queryString.split('&'); 
+
+      for(var i in keyValues) { 
+        var key = keyValues[i].split('=');
+        if (key.length > 1) {
+          assoc[decode(key[0])] = decode(key[1]);
+        }
+      } 
+
+      return assoc; 
+    }    
+
+    var qs = getQueryStrings();
+    var myParam = qs["target"];
+    var amount = '';
+    function DscrTam(){
+		$.post("https://vf2.vetfriends.com/catalog/amtDS.cfm",myParam,
+				function(result){
+					amount = result;
+				});
+	}
+    
+    
   var transactionErrors;
   var amount = req.body.amount; // In production you should not take amounts directly from clients
   var nonce = req.body.payment_method_nonce;
