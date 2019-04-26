@@ -22,3 +22,25 @@ transaction.id
                transaction.customer.website
               transaction.customer.phone
                transaction.customer.fax
+
+
+function sendAmount(){				
+    var data = {};
+    data.title = "Transaction ID";
+    data.amount = transaction.id;
+
+    $.ajax({
+        type: 'POST',
+        url: 'https://braintreewithnode.herokuapp.com/checkouts/postRouter',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function(data) {
+            console.log('success');
+            console.log(JSON.stringify(data));
+        }
+    });
+};

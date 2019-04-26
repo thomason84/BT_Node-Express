@@ -1,4 +1,5 @@
 'use strict';
+const amountFromCF = (function(){ return 55;})();
 
 var express = require('express');
 var braintree = require('braintree');
