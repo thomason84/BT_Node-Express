@@ -1,12 +1,9 @@
 'use strict';
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
-const { window } = new JSDOM(`<!DOCTYPE html>`);
-const $ = require('jQuery')(window);
 var express = require('express');
 var braintree = require('braintree');
 var router = express.Router(); // eslint-disable-line new-cap
 var gateway = require('../lib/gateway');
+const axios = require('axios')
 
 var TRANSACTION_SUCCESS_STATUSES = [
   braintree.Transaction.Status.Authorizing,
@@ -97,10 +94,14 @@ router.post('/checkouts', function (req, res) {
     var myParam = qs["target"];
     var amount = '';
     function DscrTam(){
-		$.post("https://vf2.vetfriends.com/catalog/amtDS.cfm",myParam,
-				function(result){
-					amount = result;
-				});
+        return axios.post('https://vf2.vetfriends.com/catalog/amtDS.cfm',  myParam)
+          .then(function (response) {
+            console.log(response);
+            amount = response;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 	}
     DscrTam();
     
