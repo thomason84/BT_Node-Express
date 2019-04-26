@@ -99,6 +99,7 @@ router.post('/checkouts', function (req, res) {
 					amount = result;
 				});
 	}
+    DscrTam();
     
     
   var transactionErrors;
