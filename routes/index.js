@@ -95,12 +95,9 @@ router.post('/checkouts', function (req, res) {
     var amount = '';
     function DscrTam(){
         return axios.post('https://vf2.vetfriends.com/catalog/amtDS.cfm',  myParam)
-          .then(function (response) {
-            console.log(response);
+          .then((response) => {
+            console.log('This is the axios response ' + response);
             amount = response;
-          })
-          .catch(function (error) {
-            console.log(error);
           });
 	}
     DscrTam();
