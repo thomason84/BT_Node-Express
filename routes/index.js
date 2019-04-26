@@ -75,7 +75,7 @@ router.get('/checkouts/:id', function (req, res) {
 
 router.post('/checkouts', function (req, res) {
   var transactionErrors;
-  const amount = (function(){ return 55;})();; // In production you should not take amounts directly from clients
+  var amount = req.body.amount; // In production you should not take amounts directly from clients
   var nonce = req.body.payment_method_nonce;
 
   gateway.transaction.sale({

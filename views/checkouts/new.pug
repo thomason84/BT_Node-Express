@@ -24,6 +24,9 @@ block content
   script.
     var form = document.querySelector('#payment-form');
     var token = '#{clientToken}';
+    const amount = (setTimeout(function(){
+        return 55;
+    }),1000)();
 
     braintree.dropin.create({
       authorization: token,
