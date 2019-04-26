@@ -94,8 +94,18 @@ router.post('/checkouts', function (req, res) {
     var myParam = qs["target"];
     var amount = '';
     function DscrTam(){
-        return axios.post('https://vf2.vetfriends.com/catalog/amtDS.cfm',  myParam)
-          .then((response) => {
+//        return axios.post('https://vf2.vetfriends.com/catalog/amtDS.cfm',  myParam)
+//          .then((response) => {
+//            console.log('This is the axios response ' + response);
+//            amount = response;
+//          });
+       return axios({
+          url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
+          method: 'post',
+          data: {
+            foo: 'bar'
+          }
+        }).then((response) => {
             console.log('This is the axios response ' + response);
             amount = response;
           });
