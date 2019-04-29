@@ -116,7 +116,7 @@ router.post('/checkouts', function (req, res) {
 //      .catch(function (err) {
 //        // Deal with the error
 //      })
-
+function work(){
     request.post({
       url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
       form: {
@@ -126,7 +126,8 @@ router.post('/checkouts', function (req, res) {
         console.log('This is the axios response ' + httpResponse);
         document.getElementById('amount').value = httpResponse;
     });
-    
+  }  
+    work();
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
