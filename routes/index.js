@@ -92,7 +92,7 @@ router.post('/checkouts', function (req, res) {
 
     var qs = getQueryStrings();
     var myParam = qs["target"];
-    var amount = myParam;
+    var amount = '';
     
     function DscrTam(){
         var qs = getQueryStrings();
@@ -112,7 +112,7 @@ router.post('/checkouts', function (req, res) {
             data: {amount: amount}
         }).then(function () {
             console.log('This is the axios response ' + response);
-            amount = response;
+            document.getElementById('amount').value = response;
         });
     }
     
