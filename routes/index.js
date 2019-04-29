@@ -77,38 +77,40 @@ router.get('/checkouts/:id', function (req, res) {
 
 router.post('/checkouts', function (req, res) {
     
-    
-    function getQueryStrings() { 
-      var assoc  = {};
-      var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-      var queryString = location.search.substring(1); 
-      var keyValues = queryString.split('&'); 
+    function makeARequest(){
+        function getQueryStrings() { 
+          var assoc  = {};
+          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+          var queryString = location.search.substring(1); 
+          var keyValues = queryString.split('&'); 
 
-      for(var i in keyValues) { 
-        var key = keyValues[i].split('=');
-        if (key.length > 1) {
-          assoc[decode(key[0])] = decode(key[1]);
-        }
-      } 
+          for(var i in keyValues) { 
+            var key = keyValues[i].split('=');
+            if (key.length > 1) {
+              assoc[decode(key[0])] = decode(key[1]);
+            }
+          } 
 
-      return assoc; 
-    }    
+          return assoc; 
+        }    
 
-        var qs = getQueryStrings();
-        var myParam = qs["target"];
-        var amount = 'myParam';
-        
-        
+            var qs = getQueryStrings();
+            var myParam = qs["target"];
+            var amount = 'myParam';
+
+
+
+        request.post({
+          headers: {'content-type' : 'application/x-www-form-urlencoded'},
+          url:     'http://vf2.vetfriends.com/catalog/amtDS.cfm',
+          body:    "amount=amount"
+        }, function(error, response, body){
+          console.log("IT WORKED!!!!" + response + body);
+        });
+    }
     
-    request.post({
-      headers: {'content-type' : 'application/x-www-form-urlencoded'},
-      url:     'http://vf2.vetfriends.com/catalog/amtDS.cfm',
-      body:    "amount=amount"
-    }, function(error, response, body){
-      console.log("IT WORKED!!!!" + response + body);
-    });
     
-    
+    makeARequest();
     
     
   var transactionErrors;
