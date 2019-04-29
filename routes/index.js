@@ -94,21 +94,34 @@ router.post('/checkouts', function (req, res) {
     var myParam = qs["target"];
     var amount = '';
     function DscrTam(){
-//        return axios.post('https://vf2.vetfriends.com/catalog/amtDS.cfm',  myParam)
-//          .then((response) => {
+
+//       return axios({
+//          url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
+//          method: 'post',
+//          data: {
+//            amount: amount
+//          }
+//        }).then((response) => {
 //            console.log('This is the axios response ' + response);
 //            amount = response;
 //          });
-       return axios({
-          url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
-          method: 'post',
-          data: {
-            amount: amount
-          }
-        }).then((response) => {
+        
+        var bodyFormData = new FormData();
+        bodyFormData.set('amount', amount);
+           return axios({
+        method: 'post',
+        url: 'myurl',
+        data: bodyFormData,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
+        })
+        .then(function (response) {
             console.log('This is the axios response ' + response);
             amount = response;
-          });
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
 	}
     DscrTam();
     
