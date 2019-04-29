@@ -116,14 +116,36 @@ router.post('/checkouts', function (req, res) {
 //        });
             
         
-        rp.post('https://www.vetfriends.com/catalog/amtDS.cfm', {
-          form: {
-            amount: amount,
-          }
-        }).then(function (response) {
+//        rp.post('https://www.vetfriends.com/catalog/amtDS.cfm', {
+//          form: {
+//            amount: amount,
+//          }
+//        }).then(function (response) {
+//            console.log('This is the axios response ' + response);
+//            document.getElementById('amount').value = response;
+//        });
+//        
+        
+        const options = {
+          method: 'POST',
+          uri: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+          body: {
+            amount: amount
+          },
+          json: true 
+            // JSON stringifies the body automatically
+        }
+        
+        request(options)
+          .then(function (response) {
             console.log('This is the axios response ' + response);
             document.getElementById('amount').value = response;
-        });
+            // Handle the response
+          })
+          .catch(function (err) {
+            // Deal with the error
+          })
+        
     }
     
     
