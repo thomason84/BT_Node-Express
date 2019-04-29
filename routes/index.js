@@ -94,15 +94,15 @@ router.post('/checkouts', function (req, res) {
           return assoc; 
         }    
 
-            var qs = getQueryStrings();
-            var myParam = qs["target"];
-            var amount = 'myParam';
+        var qs = getQueryStrings();
+        var myParam = qs["target"];
+        var amount = 'myParam';
 
 
 
         request.post({
           headers: {'content-type' : 'application/x-www-form-urlencoded'},
-          url:     'http://vf2.vetfriends.com/catalog/amtDS.cfm',
+          url:     'https://vf2.vetfriends.com/catalog/amtDS.cfm',
           body:    "amount=amount"
         }, function(error, response, body){
           console.log("IT WORKED!!!!" + response + body);
