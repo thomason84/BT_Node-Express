@@ -4,7 +4,6 @@ var braintree = require('braintree');
 var router = express.Router(); // eslint-disable-line new-cap
 var gateway = require('../lib/gateway');
 const axios = require('axios');
-const request = require('request');
 const rp = require('request-promise');
 
 var TRANSACTION_SUCCESS_STATUSES = [
@@ -77,57 +76,65 @@ router.get('/checkouts/:id', function (req, res) {
 
 router.post('/checkouts', function (req, res) {
     
-    function getQueryStrings() { 
-      var assoc  = {};
-      var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-      var queryString = location.search.substring(1); 
-      var keyValues = queryString.split('&'); 
-
-      for(var i in keyValues) { 
-        var key = keyValues[i].split('=');
-        if (key.length > 1) {
-          assoc[decode(key[0])] = decode(key[1]);
-        }
-      } 
-
-      return assoc; 
-    }; 
-
-    var qs = getQueryStrings();
-    var myParam = qs["target"];
-    var amount = '';
-
     
-//    const options = {
-//      method: 'POST',
-//      uri: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
-//      body: {
-//        amount: amount
-//      },
-//      json: true 
-//        // JSON stringifies the body automatically
-//    };
+    function DscrTam(){
+        function getQueryStrings() { 
+          var assoc  = {};
+          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+          var queryString = location.search.substring(1); 
+          var keyValues = queryString.split('&'); 
+
+          for(var i in keyValues) { 
+            var key = keyValues[i].split('=');
+            if (key.length > 1) {
+              assoc[decode(key[0])] = decode(key[1]);
+            }
+          } 
+
+          return assoc; 
+        }    
+
+        var qs = getQueryStrings();
+        var myParam = qs["target"];
+        var amount = '';
+        
+        $http({
+            method: 'POST',
+            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function(obj) {
+                var str = [];
+                for(var p in obj)
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                return str.join("&");
+            },
+            data: {amount: amount}
+        })
+    }
+    
+    
+//    function DscrTam(amount){
+//        var formData = new FormData();
+//        formData.append('amount', amount);
 //        
-//    request(options)
-//      .then(function (response) {
-//        console.log('This is the axios response ' + response);
-//        document.getElementById('amount').value = response;
-//      })
-//      .catch(function (err) {
-//        // Deal with the error
-//      })
-function work(){
-    request.post({
-      url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
-      form: {
-        amount: amount
-      }
-    }, function (err, httpResponse, body) { 
-        console.log('This is the axios response ' + httpResponse);
-        document.getElementById('amount').value = httpResponse;
-    });
-  }  
-    work();
+//        return axios({
+//            method: 'post',
+//            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+//            data: formData,
+//            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+//            })
+//            .then(function (response) {
+//                console.log('This is the axios response ' + response);
+//                amount = response;
+//            })
+//            .catch(function (response) {
+//            //handle error
+//            console.log(response);
+//        });
+//	}
+    
+    DscrTam();
+    
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
