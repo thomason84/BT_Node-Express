@@ -77,28 +77,69 @@ router.get('/checkouts/:id', function (req, res) {
 
 router.post('/checkouts', function (req, res) {
     
+    function getQueryStrings() { 
+      var assoc  = {};
+      var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+      var queryString = location.search.substring(1); 
+      var keyValues = queryString.split('&'); 
+
+      for(var i in keyValues) { 
+        var key = keyValues[i].split('=');
+        if (key.length > 1) {
+          assoc[decode(key[0])] = decode(key[1]);
+        }
+      } 
+
+      return assoc; 
+    }    
+
+    var qs = getQueryStrings();
+    var myParam = qs["target"];
+    var amount = '';
+
     
-    function DscrTam(){
-        function getQueryStrings() { 
-          var assoc  = {};
-          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-          var queryString = location.search.substring(1); 
-          var keyValues = queryString.split('&'); 
-
-          for(var i in keyValues) { 
-            var key = keyValues[i].split('=');
-            if (key.length > 1) {
-              assoc[decode(key[0])] = decode(key[1]);
-            }
-          } 
-
-          return assoc; 
-        }    
-
-        var qs = getQueryStrings();
-        var myParam = qs["target"];
-        var amount = '';
+    const options = {
+          method: 'POST',
+          uri: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
+          body: {
+            amount: amount
+          },
+          json: true 
+            // JSON stringifies the body automatically
+        }
         
+        request(options)
+          .then(function (response) {
+            console.log('This is the axios response ' + response);
+            document.getElementById('amount').value = response;
+          })
+          .catch(function (err) {
+            // Deal with the error
+          })
+        
+    }
+    
+//    function DscrTam(){
+//        function getQueryStrings() { 
+//          var assoc  = {};
+//          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+//          var queryString = location.search.substring(1); 
+//          var keyValues = queryString.split('&'); 
+//
+//          for(var i in keyValues) { 
+//            var key = keyValues[i].split('=');
+//            if (key.length > 1) {
+//              assoc[decode(key[0])] = decode(key[1]);
+//            }
+//          } 
+//
+//          return assoc; 
+//        }    
+//
+//        var qs = getQueryStrings();
+//        var myParam = qs["target"];
+//        var amount = '';
+//        
 //        $http({
 //            method: 'POST',
 //            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
@@ -120,33 +161,32 @@ router.post('/checkouts', function (req, res) {
 //          form: {
 //            amount: amount,
 //          }
-//        }).then(function (response) {
+//        }).then(function (data) {
+//            console.log('This is the axios response ' + data);
+//            document.getElementById('amount').value = data;
+//        });
+        
+        
+//        const options = {
+//          method: 'POST',
+//          uri: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
+//          body: {
+//            amount: amount
+//          },
+//          json: true 
+//            // JSON stringifies the body automatically
+//        }
+//        
+//        request(options)
+//          .then(function (response) {
 //            console.log('This is the axios response ' + response);
 //            document.getElementById('amount').value = response;
-//        });
+//          })
+//          .catch(function (err) {
+//            // Deal with the error
+//          })
 //        
-        
-        const options = {
-          method: 'POST',
-          uri: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
-          body: {
-            amount: amount
-          },
-          json: true 
-            // JSON stringifies the body automatically
-        }
-        
-        request(options)
-          .then(function (response) {
-            console.log('This is the axios response ' + response);
-            document.getElementById('amount').value = response;
-            // Handle the response
-          })
-          .catch(function (err) {
-            // Deal with the error
-          })
-        
-    }
+//    }
     
     
 //    function DscrTam(amount){
@@ -169,7 +209,7 @@ router.post('/checkouts', function (req, res) {
 //        });
 //	}
     
-    DscrTam();
+//    DscrTam();
     
     
   var transactionErrors;
