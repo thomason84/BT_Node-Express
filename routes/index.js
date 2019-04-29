@@ -94,36 +94,45 @@ router.post('/checkouts', function (req, res) {
     var myParam = qs["target"];
     var amount = myParam;
     
-//    function DscrTam(){
-//		$.ajax({
-//            type: 'POST',
-//            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
-//            data: {
-//                amount: amount
-//            }
-//        })
-//    }
-    
-    
-    function DscrTam(amount){
-        var formData = new FormData();
-        formData.append('amount', amount);
-        
-        return axios({
-            method: 'post',
+    function DscrTam(){
+        $http({
+            method: 'POST',
             url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
-            data: formData,
-            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }}
-            })
-            .then(function (response) {
-                console.log('This is the axios response ' + response);
-                amount = response;
-            })
-            .catch(function (response) {
-            //handle error
-            console.log(response);
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: function(obj) {
+                var str = [];
+                for(var p in obj)
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                return str.join("&");
+            },
+            data: {amount: amount}
+        }).then(function () {
+            console.log('This is the axios response ' + response);
+            amount = response;
         });
-	}
+    }
+    
+    
+//    function DscrTam(amount){
+//        var formData = new FormData();
+//        formData.append('amount', amount);
+//        
+//        return axios({
+//            method: 'post',
+//            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+//            data: formData,
+//            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+//            })
+//            .then(function (response) {
+//                console.log('This is the axios response ' + response);
+//                amount = response;
+//            })
+//            .catch(function (response) {
+//            //handle error
+//            console.log(response);
+//        });
+//	}
+    
     DscrTam();
     
     
