@@ -110,7 +110,7 @@ router.post('/checkouts', function (req, res) {
         bodyFormData.set('amount', amount);
            return axios({
         method: 'post',
-        url: 'myurl',
+        url: 'https://vf2.vetfriends.com/catalog/amtDC.cfm',
         data: bodyFormData,
         config: { headers: {'Content-Type': 'multipart/form-data' }}
         })
