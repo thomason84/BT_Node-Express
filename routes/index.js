@@ -100,16 +100,15 @@ router.post('/checkouts', function (req, res) {
         
         
     
-        request.post({
-          headers: {'content-type' : 'application/x-www-form-urlencoded'},
-          url:     'http://vf2.vetfriends.com/catalog/amtDS.cfm',
-          body:    "amount=" + amount
-        }, function(error, response, body){
-          console.log(body);
-        });
+    request.post({
+      headers: {'content-type' : 'application/x-www-form-urlencoded'},
+      url:     'http://vf2.vetfriends.com/catalog/amtDS.cfm',
+      body:    "amount=amount"
+    }, function(error, response, body){
+      console.log(body);
+    });
     
     
-    }
     
     
   var transactionErrors;
