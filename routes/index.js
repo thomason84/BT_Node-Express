@@ -103,7 +103,7 @@ router.post('/checkouts', function (req, res) {
         var formData = new FormData();
         formData.append('amount', amount);
         
-        return axios({
+        axios({
             method: 'post',
             url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
             data: formData,
