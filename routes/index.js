@@ -3,7 +3,7 @@ var express = require('express');
 var braintree = require('braintree');
 var router = express.Router(); // eslint-disable-line new-cap
 var gateway = require('../lib/gateway');
-const axios = require('axios')
+const axios = require('axios');
 
 var TRANSACTION_SUCCESS_STATUSES = [
   braintree.Transaction.Status.Authorizing,
@@ -93,37 +93,36 @@ router.post('/checkouts', function (req, res) {
     var qs = getQueryStrings();
     var myParam = qs["target"];
     var amount = myParam;
-    function DscrTam(amount){
+    
+    function DscrTam(){
+//		$.ajax({
+//            type: 'POST',
+//            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+//            data: {
+//                amount: amount
+//            }
+//        })
+//    }
+    
+    
+//    function DscrTam(amount){
         var bodyFormData = new FormData();
         bodyFormData.set('amount', amount);
         
-       return axios({
-          url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
-          method: 'post',
-          data: {
-            amount: amount
-          }
-        }).then((response) => {
-            console.log('This is the axios response ' + response);
-            amount = response;
-          });
-        
-//        var bodyFormData = new FormData();
-//        bodyFormData.set('amount', amount);
-//           return axios({
-//        method: 'post',
-//        url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
-//        data: bodyFormData,
-//        config: { headers: {'Content-Type': 'multipart/form-data' }}
-//        })
-//        .then(function (response) {
-//            console.log('This is the axios response ' + response);
-//            amount = response;
-//        })
-//        .catch(function (response) {
-//            //handle error
-//            console.log(response);
-//        });
+        return axios({
+            method: 'post',
+            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+            .then(function (response) {
+                console.log('This is the axios response ' + response);
+                amount = response;
+            })
+            .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
 	}
     DscrTam();
     
