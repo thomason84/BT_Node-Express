@@ -91,33 +91,41 @@ router.post('/checkouts', function (req, res) {
       } 
 
       return assoc; 
-    }    
+    }; 
 
     var qs = getQueryStrings();
     var myParam = qs["target"];
     var amount = '';
 
     
-    const options = {
-          method: 'POST',
-          uri: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
-          body: {
-            amount: amount
-          },
-          json: true 
-            // JSON stringifies the body automatically
-        }
-        
-        request(options)
-          .then(function (response) {
-            console.log('This is the axios response ' + response);
-            document.getElementById('amount').value = response;
-          })
-          .catch(function (err) {
-            // Deal with the error
-          })
-    
+//    const options = {
+//      method: 'POST',
+//      uri: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
+//      body: {
+//        amount: amount
+//      },
+//      json: true 
+//        // JSON stringifies the body automatically
+//    };
+//        
+//    request(options)
+//      .then(function (response) {
+//        console.log('This is the axios response ' + response);
+//        document.getElementById('amount').value = response;
+//      })
+//      .catch(function (err) {
+//        // Deal with the error
+//      })
 
+    request.post({
+      url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
+      form: {
+        amount: amount
+      }
+    }, function (err, httpResponse, body) { 
+        console.log('This is the axios response ' + httpResponse);
+        document.getElementById('amount').value = httpResponse;
+    });
     
     
   var transactionErrors;
