@@ -94,7 +94,7 @@ router.post('/checkouts', function (req, res) {
     var myParam = qs["target"];
     var amount = myParam;
     
-    function DscrTam(){
+//    function DscrTam(){
 //		$.ajax({
 //            type: 'POST',
 //            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
@@ -105,15 +105,14 @@ router.post('/checkouts', function (req, res) {
 //    }
     
     
-//    function DscrTam(amount){
-        var bodyFormData = new FormData();
-//        bodyFormData.set('amount', amount);
-        bodyFormData.append('amount', amount);
+    function DscrTam(amount){
+        var formData = new FormData();
+        formData.append('amount', amount);
         
         return axios({
             method: 'post',
             url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
-            data: bodyFormData,
+            data: formData,
             config: { headers: {'Content-Type': 'multipart/form-data' }}
             })
             .then(function (response) {
