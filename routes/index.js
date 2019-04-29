@@ -107,7 +107,8 @@ router.post('/checkouts', function (req, res) {
     
 //    function DscrTam(amount){
         var bodyFormData = new FormData();
-        bodyFormData.set('amount', amount);
+//        bodyFormData.set('amount', amount);
+        bodyFormData.append('amount', amount);
         
         return axios({
             method: 'post',
