@@ -92,7 +92,7 @@ router.post('/checkouts', function (req, res) {
 
     var qs = getQueryStrings();
     var myParam = qs["target"];
-    var amount = '';
+    var amount = myParam;
     function DscrTam(){
 
 //       return axios({
