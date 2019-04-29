@@ -105,7 +105,7 @@ router.post('/checkouts', function (req, res) {
       url:     'http://vf2.vetfriends.com/catalog/amtDS.cfm',
       body:    "amount=amount"
     }, function(error, response, body){
-      console.log(body);
+      console.log("IT WORKED!!!!" + response + body);
     });
     
     
