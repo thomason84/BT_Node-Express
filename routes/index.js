@@ -93,7 +93,7 @@ router.post('/checkouts', function (req, res) {
     var qs = getQueryStrings();
     var myParam = qs["target"];
     var amount = myParam;
-    function DscrTam(){
+    function DscrTam(amount){
 
 //       return axios({
 //          url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
@@ -127,7 +127,7 @@ router.post('/checkouts', function (req, res) {
     
     
   var transactionErrors;
-  var amount = req.body.amount; // In production you should not take amounts directly from clients
+  //var amount = req.body.amount; // In production you should not take amounts directly from clients
   var nonce = req.body.payment_method_nonce;
 
   gateway.transaction.sale({
