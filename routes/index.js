@@ -94,7 +94,9 @@ router.post('/checkouts', function (req, res) {
     var myParam = qs["target"];
     var amount = myParam;
     function DscrTam(amount){
-
+        var bodyFormData = new FormData();
+        bodyFormData.set('amount', amount);
+        
        return axios({
           url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
           method: 'post',
