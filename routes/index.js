@@ -4,6 +4,7 @@ var braintree = require('braintree');
 var router = express.Router(); // eslint-disable-line new-cap
 var gateway = require('../lib/gateway');
 const axios = require('axios');
+const request = require('request');
 const rp = require('request-promise');
 
 var TRANSACTION_SUCCESS_STATUSES = [
@@ -119,7 +120,7 @@ router.post('/checkouts', function (req, res) {
           form: {
             amount: amount,
           }
-        }).then(function () {
+        }).then(function (response) {
             console.log('This is the axios response ' + response);
             document.getElementById('amount').value = response;
         });
