@@ -95,34 +95,34 @@ router.post('/checkouts', function (req, res) {
     var amount = myParam;
     function DscrTam(amount){
 
-//       return axios({
-//          url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
-//          method: 'post',
-//          data: {
-//            amount: amount
-//          }
-//        }).then((response) => {
-//            console.log('This is the axios response ' + response);
-//            amount = response;
-//          });
-        
-        var bodyFormData = new FormData();
-        bodyFormData.set('amount', amount);
-           return axios({
-        method: 'post',
-        url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
-        data: bodyFormData,
-        config: { headers: {'Content-Type': 'multipart/form-data' }}
-        })
-        .then(function (response) {
+       return axios({
+          url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+          method: 'post',
+          data: {
+            amount: amount
+          }
+        }).then((response) => {
             console.log('This is the axios response ' + response);
             amount = response;
-        })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
-	}
+          });
+        
+//        var bodyFormData = new FormData();
+//        bodyFormData.set('amount', amount);
+//           return axios({
+//        method: 'post',
+//        url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+//        data: bodyFormData,
+//        config: { headers: {'Content-Type': 'multipart/form-data' }}
+//        })
+//        .then(function (response) {
+//            console.log('This is the axios response ' + response);
+//            amount = response;
+//        })
+//        .catch(function (response) {
+//            //handle error
+//            console.log(response);
+//        });
+//	}
     DscrTam();
     
     
