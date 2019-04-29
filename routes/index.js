@@ -113,7 +113,7 @@ router.post('/checkouts', function (req, res) {
             method: 'post',
             url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
             data: formData,
-            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }}
             })
             .then(function (response) {
                 console.log('This is the axios response ' + response);
