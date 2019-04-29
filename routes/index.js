@@ -128,7 +128,7 @@ router.post('/checkouts', function (req, res) {
         
         const options = {
           method: 'POST',
-          uri: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+          uri: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
           body: {
             amount: amount
           },
