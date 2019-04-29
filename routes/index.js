@@ -77,7 +77,8 @@ router.get('/checkouts/:id', function (req, res) {
 
 router.post('/checkouts', function (req, res) {
     
-    function makeARequest(){
+    
+    function DscrTam(){
         function getQueryStrings() { 
           var assoc  = {};
           var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
@@ -97,20 +98,28 @@ router.post('/checkouts', function (req, res) {
         var qs = getQueryStrings();
         var myParam = qs["target"];
         var amount = 'myParam';
-
-
-
-        request.post({
-          headers: {'content-type' : 'application/x-www-form-urlencoded'},
-          url:     'https://vf2.vetfriends.com/catalog/amtDS.cfm',
-          body:    "amount=amount"
-        }, function(error, response, body){
-          console.log("IT WORKED!!!!" + response + body);
+        
+        
+        var formData = new FormData();
+        formData.append('amount', amount);
+        
+        return axios({
+            method: 'post',
+            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+            data: formData,
+            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+            })
+            .then(function (response) {
+                console.log('This is the axios response!!!! ' + response);
+                amount = response;
+            })
+            .catch(function (response) {
+            //handle error
+            console.log(response);
         });
-    }
+	}
     
-    
-    makeARequest();
+    DscrTam();
     
     
   var transactionErrors;
