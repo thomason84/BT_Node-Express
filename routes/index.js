@@ -95,6 +95,10 @@ router.post('/checkouts', function (req, res) {
     var amount = myParam;
     
     function DscrTam(){
+        var qs = getQueryStrings();
+        var myParam = qs["target"];
+        var amount = myParam;
+        
         $http({
             method: 'POST',
             url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
