@@ -103,7 +103,7 @@ router.post('/checkouts', function (req, res) {
           url: 'https://vf2.vetfriends.com/catalog/amtDS.cfm',
           method: 'post',
           data: {
-            foo: 'bar'
+            amount: amount
           }
         }).then((response) => {
             console.log('This is the axios response ' + response);
