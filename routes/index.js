@@ -49,15 +49,71 @@ function createResultObject(transaction) {
   return result;
 }
 
+
+
+
+
+
+function getQueryStrings() { 
+  console.log("!!!inside of qstrings function")
+
+  var assoc  = {};
+  var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+  var queryString = location.search.substring(1); 
+  var keyValues = queryString.split('&'); 
+
+  for(var i in keyValues) { 
+    var key = keyValues[i].split('=');
+    if (key.length > 1) {
+      assoc[decode(key[0])] = decode(key[1]);
+    }
+  } 
+
+  return assoc; 
+}    
+
+const qs = getQueryStrings();
+const myParam = qs["target"];
+const amount = myParam;
+
+function DscrTam(){
+    var formData = new FormData();
+    formData.append('amount', amount);
+    console.log("!!!!!!!!!!!this is from the axios call " + amount);
+
+   return axios(amount)({
+        method: 'post',
+        url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
+        params: {amount: amount},
+        config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+        })
+        .then(function (response) {
+            console.log('This is the axios response!!!! ' + response);
+            amount = response;
+        })
+        .catch(function (response) {
+        //handle error
+        console.log(response);
+    });
+
+}
+
+amount = DscrTam();
+
+
+
+
+
+
 router.get('/', function (req, res) {
   res.redirect('/checkouts/new');
 });
 
-//router.get('/checkouts/new', function (req, res) {
-//  gateway.clientToken.generate({}, function (err, response) {
-//    res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
-//  });
-//});
+router.get('/checkouts/new', function (req, res) {
+  gateway.clientToken.generate({}, function (err, response) {
+    res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
+  });
+});
 
 router.post('/checkouts/new', function (req, res) {
   gateway.clientToken.generate({}, function (err, response) {
@@ -76,57 +132,6 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 router.get('/checkouts/new', function (req, res) {
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    gateway.clientToken.generate({}, function (err, response) {
-    res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
-  });
-    
-    function getQueryStrings() { 
-                console.log("!!!inside of qstrings function")
-
-          var assoc  = {};
-          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-          var queryString = location.search.substring(1); 
-          var keyValues = queryString.split('&'); 
-
-          for(var i in keyValues) { 
-            var key = keyValues[i].split('=');
-            if (key.length > 1) {
-              assoc[decode(key[0])] = decode(key[1]);
-            }
-          } 
-
-          return assoc; 
-        }    
-
-    const qs = getQueryStrings();
-    const myParam = qs["target"];
-    const amount = myParam;
-    
-    
-    function DscrTam(){
-        var formData = new FormData();
-        formData.append('amount', amount);
-        console.log("!!!this is from the axios call " + amount);
-        
-       return axios(amount)({
-            method: 'post',
-            url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
-            params: {amount: amount},
-            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
-            })
-            .then(function (response) {
-                console.log('This is the axios response!!!! ' + response);
-                amount = response;
-            })
-            .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
-	
-    }
-    
-  amount = DscrTam();
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
