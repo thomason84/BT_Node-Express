@@ -58,26 +58,26 @@ function createResultObject(transaction) {
 
 
 //function getQueryStrings() { 
-//  console.log("!!!inside of qstrings function")
-//  
-//  var assoc  = {};
-//  var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-//  var queryString = location.search.substring(1); 
-//  var keyValues = queryString.split('&'); 
+//      console.log("!!!inside of qstrings function")
 //
-//  for(var i in keyValues) { 
-//    var key = keyValues[i].split('=');
-//    if (key.length > 1) {
-//      assoc[decode(key[0])] = decode(key[1]);
-//    }
-//  } 
+//      var assoc  = {};
+//      var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+//      var queryString = location.search.substring(1); 
+//      var keyValues = queryString.split('&'); 
 //
-//  return assoc; 
-//}    
+//      for(var i in keyValues) { 
+//        var key = keyValues[i].split('=');
+//        if (key.length > 1) {
+//          assoc[decode(key[0])] = decode(key[1]);
+//        }
+//      } 
 //
-//const qs = getQueryStrings();
-//const myParam = qs["target"];
-//const tamount = query;
+//      return assoc; 
+//    }    
+//
+//    const qs = getQueryStrings();
+//    const myParam = qs["target"];
+//    const amount = myParam
 
 //function DscrTam(){
 ////    var formData = new FormData();
@@ -109,21 +109,38 @@ function createResultObject(transaction) {
 
 
 router.get('/', function (req, res) {
-    console.log("this is the target query " + req.query);
-    res.redirect('/checkouts/new?' + req.query);
+    console.log("this is the target query " + req.query.target);
+    res.redirect('/checkouts/new?target=' + req.query.target);
 });
+
 
 router.get('/checkouts/new', function (req, res) {
+    function getQueryStrings() { 
+      console.log("!!!inside of qstrings function")
+
+      var assoc  = {};
+      var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+      var queryString = location.search.substring(1); 
+      var keyValues = queryString.split('&'); 
+
+      for(var i in keyValues) { 
+        var key = keyValues[i].split('=');
+        if (key.length > 1) {
+          assoc[decode(key[0])] = decode(key[1]);
+        }
+      } 
+
+      return assoc; 
+    }    
+
+    const qs = getQueryStrings();
+    const myParam = qs["target"];
+    const amount = myParam
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
   });
 });
 
-router.post('/checkouts/new', function (req, res) {
-  gateway.clientToken.generate({}, function (err, response) {
-    res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
-  });
-});
 
 router.get('/checkouts/:id', function (req, res) {
   var result;
@@ -135,7 +152,11 @@ router.get('/checkouts/:id', function (req, res) {
   });
 });
 
-router.get('/checkouts/new', function (req, res) {
+
+router.post('/checkouts/new', function (req, res) {
+
+  const amount = req.query.target    
+    
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
