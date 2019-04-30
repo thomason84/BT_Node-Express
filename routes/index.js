@@ -105,7 +105,7 @@ router.post('/checkouts', function (req, res) {
         
         axios({
             method: 'post',
-            url: 'https://vf2.vetfriends.com/catalog/jsonTest.cfm',
+            url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
             data: {amount: amount},
             config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
             })
