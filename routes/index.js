@@ -75,8 +75,8 @@ router.get('/checkouts/:id', function (req, res) {
   });
 });
 
-router.post('/checkouts', function (req, res) {
-   var qs = (function getQueryStrings() { 
+router.get('/checkouts', function (req, res) {
+    function getQueryStrings() { 
                 console.log("!!!inside of qstrings function")
 
           var assoc  = {};
@@ -92,14 +92,14 @@ router.post('/checkouts', function (req, res) {
           } 
 
           return assoc; 
-        })();  
+        }    
 
-//    const qs = getQueryStrings();
-    var myParam = qs["target"];
-    var amount = myParam;
+    const qs = getQueryStrings();
+    const myParam = qs["target"];
+    const amount = myParam;
     
     
-   tamount = (function DscrTam(){
+    function DscrTam(){
         var formData = new FormData();
         formData.append('amount', amount);
         console.log("!!!this is from the axios call " + amount);
@@ -119,16 +119,16 @@ router.post('/checkouts', function (req, res) {
             console.log(response);
         });
 	
-    })();
+    }
     
-//  amount = DscrTam();
+  amount = DscrTam();
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
   var nonce = req.body.payment_method_nonce;
 
   gateway.transaction.sale({
-    amount: tamount,
+    amount: amount,
     paymentMethodNonce: nonce,
     options: {
       submitForSettlement: true
