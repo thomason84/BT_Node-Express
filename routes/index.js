@@ -52,7 +52,6 @@ function createResultObject(transaction) {
 }
 
 
-const url = await page.url();
 console.log("!!!!!!!!!!!" + url);
 
 
@@ -78,7 +77,7 @@ console.log("!!!!!!!!!!!" + url);
 //
 //const qs = getQueryStrings();
 //const myParam = qs["target"];
-const tamount = query;
+//const tamount = query;
 
 function DscrTam(){
     var formData = new FormData();
