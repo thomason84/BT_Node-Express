@@ -102,6 +102,7 @@ router.post('/checkouts', function (req, res) {
         
         var formData = new FormData();
         formData.append('amount', amount);
+        console.log("this is my amount " + amount);
         
        return axios({
             method: 'post',
