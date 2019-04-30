@@ -52,7 +52,7 @@ function createResultObject(transaction) {
 }
 
 
-console.log("!!!!!!!!!!!" + url.query);
+
 
 
 
@@ -110,6 +110,7 @@ console.log("!!!!!!!!!!!" + url.query);
 
 router.get('/', function (req, res) {
   res.redirect('/checkouts/new');
+    res.send("target is set to " + req.query("target"));
 });
 
 router.get('/checkouts/new', function (req, res) {
