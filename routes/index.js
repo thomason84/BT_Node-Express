@@ -76,7 +76,8 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 router.post('/checkouts', function (req, res) {
-    function getQueryStrings() { 
+    const qs = function getQueryStrings() { 
+        console.log("!!!inside of qstrings function");
           var assoc  = {};
           var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
           var queryString = location.search.substring(1); 
@@ -92,15 +93,13 @@ router.post('/checkouts', function (req, res) {
           return assoc; 
         }    
 
-        const qs = getQueryStrings();
-        const myParam = qs["target"];
-        const amount = myParam;
+    const amount = qs["target"];
     
     
-    function DscrTam(){
+    function DscrTam(amount){
         var formData = new FormData();
         formData.append('amount', amount);
-        console.log("this is my amount " + amount);
+        console.log("!!!this is from the axios call " + amount);
         
        return axios(amount)({
             method: 'post',
