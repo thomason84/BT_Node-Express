@@ -117,9 +117,7 @@ router.post('/checkouts', function (req, res) {
             //handle error
             console.log(response);
         });
-	}
-    
-    DscrTam();
+	
     
     
   var transactionErrors;
@@ -141,6 +139,9 @@ router.post('/checkouts', function (req, res) {
       res.redirect('checkouts/new');
     }
   });
+        }
+    
+    DscrTam();
 });
 
 module.exports = router;
