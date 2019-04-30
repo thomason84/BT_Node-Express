@@ -119,14 +119,14 @@ router.post('/checkouts', function (req, res) {
 	
     }
     
-  var tAmount = DscrTam();
+  amount = DscrTam();
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
   var nonce = req.body.payment_method_nonce;
 
   gateway.transaction.sale({
-    amount: tAmount,
+    amount: amount,
     paymentMethodNonce: nonce,
     options: {
       submitForSettlement: true
