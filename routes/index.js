@@ -5,7 +5,9 @@ var router = express.Router(); // eslint-disable-line new-cap
 var gateway = require('../lib/gateway');
 const axios = require('axios');
 const rp = require('request-promise');
-var request = require('request');
+var request = require('request'); 
+const url = require('url');  
+const querystring = require('querystring');
 
 var TRANSACTION_SUCCESS_STATUSES = [
   braintree.Transaction.Status.Authorizing,
@@ -50,10 +52,10 @@ function createResultObject(transaction) {
 }
 
 
+const url = await page.url();
+console.log("!!!!!!!!!!!" + url);
 
-var url = require('url');
-var url_parts = url.parse(request.url, true);
-var query = url_parts.query;
+
 
 
 //function getQueryStrings() { 
