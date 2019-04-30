@@ -76,7 +76,7 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 router.post('/checkouts', function (req, res) {
-   const qs = (function getQueryStrings() { 
+   var qs = (function getQueryStrings() { 
                 console.log("!!!inside of qstrings function")
 
           var assoc  = {};
@@ -95,8 +95,8 @@ router.post('/checkouts', function (req, res) {
         })();  
 
 //    const qs = getQueryStrings();
-    const myParam = qs["target"];
-    const amount = myParam;
+    var myParam = qs["target"];
+    var amount = myParam;
     
     
    tamount = (function DscrTam(){
