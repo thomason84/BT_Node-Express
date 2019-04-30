@@ -52,7 +52,7 @@ function createResultObject(transaction) {
 }
 
 
-console.log("!!!!!!!!!!!" + url.query.target);
+console.log("!!!!!!!!!!!" + url.query);
 
 
 
