@@ -102,7 +102,7 @@ router.post('/checkouts', function (req, res) {
         formData.append('amount', amount);
         console.log("this is my amount " + amount);
         
-       return axios({
+       return axios(amount)({
             method: 'post',
             url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
             params: {amount: amount},
