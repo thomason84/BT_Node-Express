@@ -95,17 +95,17 @@ router.post('/checkouts', function (req, res) {
           return assoc; 
         }    
 
-        var qs = getQueryStrings();
-        var myParam = qs["target"];
-        var amount = 'myParam';
+        const qs = getQueryStrings();
+        const myParam = qs["target"];
+        const amount = 'myParam';
         
         
-//        var formData = new FormData();
-//        formData.append('amount', amount);
+        var formData = new FormData();
+        formData.append('amount', amount);
         
         axios({
             method: 'post',
-            url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
+            url: 'https://vf2.vetfriends.com/catalog/jsonTest.cfm',
             data: {amount: amount},
             config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
             })
@@ -118,7 +118,9 @@ router.post('/checkouts', function (req, res) {
             console.log(response);
         });
 	
+    }
     
+    DscrTam();
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
@@ -139,9 +141,7 @@ router.post('/checkouts', function (req, res) {
       res.redirect('checkouts/new');
     }
   });
-        }
-    
-    DscrTam();
+        
 });
 
 module.exports = router;
