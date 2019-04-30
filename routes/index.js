@@ -97,7 +97,7 @@ router.post('/checkouts', function (req, res) {
 
         const qs = getQueryStrings();
         const myParam = qs["target"];
-        const amount = 'myParam';
+        const amount = myParam;
         
         
         var formData = new FormData();
@@ -107,7 +107,7 @@ router.post('/checkouts', function (req, res) {
        return axios({
             method: 'post',
             url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
-            data: {amount: amount},
+            params: {amount: amount},
             config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
             })
             .then(function (response) {
