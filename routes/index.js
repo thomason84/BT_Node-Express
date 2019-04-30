@@ -80,8 +80,8 @@ console.log("!!!!!!!!!!!" + url);
 //const tamount = query;
 
 function DscrTam(){
-    var formData = new FormData();
-    formData.append('amount', amount);
+//    var formData = new FormData();
+//    formData.append('amount', amount);
     console.log("!!!!!!!!!!!this is from the axios call " + amount);
 
    return axios(amount)({
