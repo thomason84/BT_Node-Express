@@ -111,6 +111,7 @@ function createResultObject(transaction) {
 router.get('/', function (req, res) {
   res.redirect('/checkouts/new');
     res.send("target is set to " + req.query("target"));
+    console.log("this is the target query " + req.query("target"))
 });
 
 router.get('/checkouts/new', function (req, res) {
