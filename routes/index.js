@@ -51,7 +51,9 @@ function createResultObject(transaction) {
 
 
 
-var id = req.query.id;
+var url = require('url');
+var url_parts = url.parse(request.url, true);
+var query = url_parts.query;
 
 
 //function getQueryStrings() { 
@@ -74,7 +76,7 @@ var id = req.query.id;
 //
 //const qs = getQueryStrings();
 //const myParam = qs["target"];
-const tamount = myParam;
+const tamount = query;
 
 function DscrTam(){
     var formData = new FormData();
