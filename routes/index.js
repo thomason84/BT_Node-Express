@@ -120,7 +120,7 @@ router.post('/checkouts', function (req, res) {
 	
     }
     
-    DscrTam();
+//    DscrTam();
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
