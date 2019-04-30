@@ -100,13 +100,13 @@ router.post('/checkouts', function (req, res) {
         var amount = 'myParam';
         
         
-        var formData = new FormData();
-        formData.append('amount', amount);
+//        var formData = new FormData();
+//        formData.append('amount', amount);
         
         axios({
             method: 'post',
             url: 'https://www.vetfriends.com/catalog/amtDS.cfm',
-            data: formData,
+            data: {amount: amount},
             config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
             })
             .then(function (response) {
