@@ -76,10 +76,7 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 router.post('/checkouts', function (req, res) {
-    
-    
-    function DscrTam(){
-        function getQueryStrings() { 
+    function getQueryStrings() { 
           var assoc  = {};
           var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
           var queryString = location.search.substring(1); 
@@ -98,8 +95,9 @@ router.post('/checkouts', function (req, res) {
         const qs = getQueryStrings();
         const myParam = qs["target"];
         const amount = myParam;
-        
-        
+    
+    
+    function DscrTam(){
         var formData = new FormData();
         formData.append('amount', amount);
         console.log("this is my amount " + amount);
@@ -121,14 +119,14 @@ router.post('/checkouts', function (req, res) {
 	
     }
     
-//    DscrTam();
+  var tAmount = DscrTam();
     
   var transactionErrors;
   //var amount = req.body.amount; // In production you should not take amounts directly from clients
   var nonce = req.body.payment_method_nonce;
 
   gateway.transaction.sale({
-    amount: DscrTam(),
+    amount: tAmount,
     paymentMethodNonce: nonce,
     options: {
       submitForSettlement: true
