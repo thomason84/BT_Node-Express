@@ -79,29 +79,29 @@ console.log("!!!!!!!!!!!" + url);
 //const myParam = qs["target"];
 //const tamount = query;
 
-function DscrTam(){
-//    var formData = new FormData();
-//    formData.append('amount', amount);
-    console.log("!!!!!!!!!!!this is from the axios call " + amount);
-
-   return axios(amount)({
-        method: 'post',
-        url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
-        params: {amount: amount},
-        config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
-        })
-        .then(function (response) {
-            console.log('This is the axios response!!!! ' + response);
-            amount = response;
-        })
-        .catch(function (response) {
-        //handle error
-        console.log(response);
-    });
-
-}
-
-amount = DscrTam();
+//function DscrTam(){
+////    var formData = new FormData();
+////    formData.append('amount', amount);
+//    console.log("!!!!!!!!!!!this is from the axios call " + amount);
+//
+//   return axios(amount)({
+//        method: 'post',
+//        url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
+//        params: {amount: amount},
+//        config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+//        })
+//        .then(function (response) {
+//            console.log('This is the axios response!!!! ' + response);
+//            amount = response;
+//        })
+//        .catch(function (response) {
+//        //handle error
+//        console.log(response);
+//    });
+//
+//}
+//
+//amount = DscrTam();
 
 
 
