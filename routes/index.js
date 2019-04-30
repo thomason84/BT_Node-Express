@@ -56,10 +56,10 @@ function createResultObject(transaction) {
 
 function getQueryStrings() { 
   console.log("!!!inside of qstrings function")
-
+  var location = req.protocol + '://' + req.get('host') + req.originalUrl;
   var assoc  = {};
   var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-  var queryString = window.location.search.substring(1); 
+  var queryString = location.search.substring(1); 
   var keyValues = queryString.split('&'); 
 
   for(var i in keyValues) { 
