@@ -51,30 +51,30 @@ function createResultObject(transaction) {
 
 
 
+var id = req.query.id;
 
 
-
-function getQueryStrings() { 
-  console.log("!!!inside of qstrings function")
-  var location = req.protocol + '://' + req.get('host') + req.originalUrl;
-  var assoc  = {};
-  var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-  var queryString = location.search.substring(1); 
-  var keyValues = queryString.split('&'); 
-
-  for(var i in keyValues) { 
-    var key = keyValues[i].split('=');
-    if (key.length > 1) {
-      assoc[decode(key[0])] = decode(key[1]);
-    }
-  } 
-
-  return assoc; 
-}    
-
-const qs = getQueryStrings();
-const myParam = qs["target"];
-const amount = myParam;
+//function getQueryStrings() { 
+//  console.log("!!!inside of qstrings function")
+//  
+//  var assoc  = {};
+//  var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+//  var queryString = location.search.substring(1); 
+//  var keyValues = queryString.split('&'); 
+//
+//  for(var i in keyValues) { 
+//    var key = keyValues[i].split('=');
+//    if (key.length > 1) {
+//      assoc[decode(key[0])] = decode(key[1]);
+//    }
+//  } 
+//
+//  return assoc; 
+//}    
+//
+//const qs = getQueryStrings();
+//const myParam = qs["target"];
+const tamount = myParam;
 
 function DscrTam(){
     var formData = new FormData();
