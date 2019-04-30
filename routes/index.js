@@ -127,7 +127,7 @@ router.post('/checkouts', function (req, res) {
   var nonce = req.body.payment_method_nonce;
 
   gateway.transaction.sale({
-    amount: amount,
+    amount: DscrTam(),
     paymentMethodNonce: nonce,
     options: {
       submitForSettlement: true
