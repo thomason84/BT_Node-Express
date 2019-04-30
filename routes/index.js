@@ -76,6 +76,7 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 router.get('/checkouts', function (req, res) {
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     function getQueryStrings() { 
                 console.log("!!!inside of qstrings function")
 
