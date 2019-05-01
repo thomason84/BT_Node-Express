@@ -85,10 +85,8 @@ router.post('/checkouts/new', (req, res) => {
     
   const unscrambleAmount = async () => {
     const response = await fetch('https://www.vetfriends.com/catalog/amtDS.cfm', { method: 'POST', body: form });
-    const json = await response.json();
-    console.log('!!!!!!!!!!!!!This is the amount from the async function ' + json);
-    amount = json;
-    console.log("Final amount " + amount);
+    const amount = await response.json();
+    console.log('!!!!!!!!!!!!!This is the amount from the async function ' + amount);
       
     var transactionErrors;
     var amount = amount; 
