@@ -20,7 +20,7 @@ app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
 
-var allowedOrigins = ['http://localhost:8500', 'https://vf2.vetfriends.com','https://vf2.vetfriends.com/catalog/billing-shippingBT-part1alt.cfm', 'https://braintreewithnode.herokuapp.com'];
+//var allowedOrigins = ['http://localhost:8500', 'https://vf2.vetfriends.com','https://vf2.vetfriends.com/catalog/billing-shippingBT-part1alt.cfm', 'https://braintreewithnode.herokuapp.com'];
 
 app.use(cors({
   origin: function(origin, callback){

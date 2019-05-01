@@ -79,9 +79,9 @@ router.get('/checkouts/:id', function (req, res) {
 
 router.post('/checkouts/new', (req, res) => {  
 
-  var amount = req.query.target;    
+  var scrambledAmount = req.query.target;    
   var form = new FormData();    
-  form.append('amount', amount);
+  form.append('amount', scrambledAmount);
     
   const unscrambleAmount = async () => {
     const response = await fetch('https://www.vetfriends.com/catalog/amtDS.cfm', { method: 'POST', body: form });
@@ -89,7 +89,7 @@ router.post('/checkouts/new', (req, res) => {
     console.log('!!!!!!!!!!!!!This is the amount from the async function ' + amount);
       
     var transactionErrors;
-    var amount = amount; 
+//    var amount = amount; 
     var nonce = req.body.payment_method_nonce;
 
     gateway.transaction.sale({
