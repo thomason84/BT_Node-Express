@@ -43,19 +43,10 @@ block content
 
           // Add the nonce to the form and submit
           document.querySelector('#nonce').value = payload.nonce;
-          window.history.pushState({}, document.title, "/checkouts/new");
           form.submit();
         });
       });
     });
-    
-  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
-  script.
-    function(){
-      if (#{amount} !== ''){
-        document.getElementByID('amount').value = #{amount};
-      }
-    }
     
     
    
