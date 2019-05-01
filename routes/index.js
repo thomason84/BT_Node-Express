@@ -60,6 +60,8 @@ router.get('/', function (req, res) {
 
 
 router.get('/checkouts/new', (req, res) => {  
+    let ejs = require('ejs'),
+        amount=23;
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
   });    
@@ -77,7 +79,7 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 
-router.post('/checkouts/new', (req, res) => {  
+router.post('/checkouts/new', async (req, res) => {  
 
   var scrambledAmount = req.query.target;    
   var form = new FormData();    
@@ -93,7 +95,7 @@ router.post('/checkouts/new', (req, res) => {
     var nonce = req.body.payment_method_nonce;
 
     gateway.transaction.sale({
-      amount: parseFloat(amount, 10),
+      amount: amount,
       paymentMethodNonce: nonce,
       options: {
         submitForSettlement: true
@@ -108,9 +110,6 @@ router.post('/checkouts/new', (req, res) => {
       }
     });
   };
-    
-  unscrambleAmount();
- 
         
 });
 
