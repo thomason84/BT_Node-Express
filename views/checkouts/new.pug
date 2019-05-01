@@ -11,7 +11,7 @@ block content
         label(for="amount")
           span.input-label Amount
           .input-wrapper.amount-wrapper
-            input#amount(name="amount" type="tel" min="1" value="")
+            input#amount(name="amount" type="tel" min="1" value= amount)
 
         .bt-drop-in-wrapper
           #bt-dropin
@@ -51,9 +51,11 @@ block content
     
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
   script.
-    $(document).ready(function(){
-      $.ajax({url: "https://www.vetfriends.com/catalog/amtDS.cfm", success: function(result){
-      $("#amount").val(result);
-      }});
-      });
+    function(){
+      if (#{amount} !== ''){
+        document.getElementByID('amount').value = #{amount};
+      }
+    }
+    
+    
    

@@ -60,11 +60,25 @@ router.get('/', function (req, res) {
 
 
 router.get('/checkouts/new', (req, res) => {  
-    let ejs = require('ejs'),
-        amount=23;
+      var scrambledAmount = req.query.target;    
+      var form = new FormData();    
+      form.append('amount', scrambledAmount);
+
+      var amount = (async () => {
+        const response = await     fetch('https://www.vetfriends.com/catalog/amtDS.cfm', { method: 'POST', body: form });
+        const json = await response.json();
+          console.log(json);
+        amount =  json;
+      })();
+  
+    
   gateway.clientToken.generate({}, function (err, response) {
-    res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
-  });    
+    res.render('checkouts/new', {
+        clientToken: response.clientToken, 
+        messages: req.flash('error'), 
+        amount: amount
+    });
+  });     
 });
 
 
