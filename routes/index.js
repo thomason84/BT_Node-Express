@@ -8,6 +8,8 @@ const rp = require('request-promise');
 var request = require('request'); 
 const url = require('url');  
 const querystring = require('querystring');
+var FormData = require('form-data');
+const fetch = require("node-fetch");
 
 var TRANSACTION_SUCCESS_STATUSES = [
   braintree.Transaction.Status.Authorizing,
@@ -51,79 +53,20 @@ function createResultObject(transaction) {
   return result;
 }
 
-
-
-
-
-
-
-//function getQueryStrings() { 
-//      console.log("!!!inside of qstrings function")
-//
-//      var assoc  = {};
-//      var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-//      var queryString = location.search.substring(1); 
-//      var keyValues = queryString.split('&'); 
-//
-//      for(var i in keyValues) { 
-//        var key = keyValues[i].split('=');
-//        if (key.length > 1) {
-//          assoc[decode(key[0])] = decode(key[1]);
-//        }
-//      } 
-//
-//      return assoc; 
-//    }    
-//
-//    const qs = getQueryStrings();
-//    const myParam = qs["target"];
-//    const amount = myParam
-
-//function DscrTam(){
-////    var formData = new FormData();
-////    formData.append('amount', amount);
-//    console.log("!!!!!!!!!!!this is from the axios call " + amount);
-//
-//   return axios(amount)({
-//        method: 'post',
-//        url: 'https://www.vetfriends.com/catalog/jsonTest.cfm',
-//        params: {amount: amount},
-//        config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
-//        })
-//        .then(function (response) {
-//            console.log('This is the axios response!!!! ' + response);
-//            amount = response;
-//        })
-//        .catch(function (response) {
-//        //handle error
-//        console.log(response);
-//    });
-//
-//}
-//
-//amount = DscrTam();
-
-
-
-
-
-
 router.get('/', function (req, res) {
-    console.log("this is the target query " + req.query.target);
+    console.log("!!!!!This is the main target query " + req.query.target);
     res.redirect('/checkouts/new?target=' + req.query.target);
 });
 
 
-router.get('/checkouts/new', function (req, res) {
-    
-    const amount = req.query.target
+router.get('/checkouts/new', (req, res) => {  
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {clientToken: response.clientToken, messages: req.flash('error')});
-  });
+  });    
 });
 
 
-router.get('/checkouts/:id', function (req, res) {
+router.get('/checkouts/:id', function (req, res) {    
   var result;
   var transactionId = req.params.id;
 
@@ -134,30 +77,42 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 
-router.post('/checkouts/new', function (req, res) {
+router.post('/checkouts/new', (req, res) => {  
 
-  const amount = req.query.target    
+  var amount = req.query.target;    
+  var form = new FormData();    
+  form.append('amount', amount);
     
-    
-  var transactionErrors;
-  //var amount = req.body.amount; // In production you should not take amounts directly from clients
-  var nonce = req.body.payment_method_nonce;
+  const unscrambleAmount = async () => {
+    const response = await fetch('https://www.vetfriends.com/catalog/amtDS.cfm', { method: 'POST', body: form });
+    const json = await response.json();
+    console.log('!!!!!!!!!!!!!This is the amount from the async function ' + json);
+    amount = json;
+    console.log("Final amount " + amount);
+      
+    var transactionErrors;
+    var amount = amount; 
+    var nonce = req.body.payment_method_nonce;
 
-  gateway.transaction.sale({
-    amount: amount,
-    paymentMethodNonce: nonce,
-    options: {
-      submitForSettlement: true
-    }
-  }, function (err, result) {
-    if (result.success || result.transaction) {
-      res.redirect('checkouts/' + result.transaction.id);
-    } else {
-      transactionErrors = result.errors.deepErrors();
-      req.flash('error', {msg: formatErrors(transactionErrors)});
-      res.redirect('checkouts/new');
-    }
-  });
+    gateway.transaction.sale({
+      amount: parseFloat(amount, 10),
+      paymentMethodNonce: nonce,
+      options: {
+        submitForSettlement: true
+      }
+    }, function (err, result) {
+      if (result.success || result.transaction) {
+        res.redirect('checkouts/' + result.transaction.id);
+      } else {
+        transactionErrors = result.errors.deepErrors();
+        req.flash('error', {msg: formatErrors(transactionErrors)});
+        res.redirect('checkouts/new');
+      }
+    });
+  };
+    
+  unscrambleAmount();
+ 
         
 });
 
