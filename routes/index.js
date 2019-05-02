@@ -53,29 +53,30 @@ function createResultObject(transaction) {
   return result;
 }
 
-router.get('/', function (req, res) {  
+router.get('/', function async (req, res) {  
     var scrambledAmount = req.query.target;    
       var form = new FormData();    
       form.append('amount', scrambledAmount);
-
-      var amount = (async () => {
+        var amount;
+      (async () => {
         const response = await     fetch('https://www.vetfriends.com/catalog/amtDS.cfm', { method: 'POST', body: form });
         const json = await response.json();
-          console.log(json);
-        amount =  json;
-      })();
-    
-    req.session.amount = amount;
-    req.session.save();
-    next()
-    
-    console.log("!!!!!This is the main target query " + req.query.target);
-    res.redirect('/checkouts/new');
+        console.log(json);
+        amount = await json;
+        
+        req.session.amount = Number(amount);
+        req.session.save();
+        console.log('!!!!!!!!! This is the amount ' + req.session.amount);
+          
+          console.log("!!!!!This is the main target query " + req.query.target);
+          res.redirect('/checkouts/new');
+      })()  
 });
 
 
 router.get('/checkouts/new', (req, res) => {  
-  var amount = req.session.amount;  
+  const amount = req.session.amount;
+  console.log('!!!!This is the checkout/new page ' + amount )
     
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {
@@ -99,13 +100,14 @@ router.get('/checkouts/:id', function (req, res) {
 
 
 router.post('/checkouts/new', async (req, res) => {  
-      
+    const amount = req.session.amount; 
+    console.log('!!!!!!!This is the final location' + amount)
     var transactionErrors;
 //    var amount = amount; 
     var nonce = req.body.payment_method_nonce;
 
     gateway.transaction.sale({
-      amount: req.session.amount,
+      amount: amount,
       paymentMethodNonce: nonce,
       options: {
         submitForSettlement: true

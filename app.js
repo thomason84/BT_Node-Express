@@ -62,7 +62,11 @@ app.use(session({
   // read the express-session documentation for details
   secret: '---',
   saveUninitialized: true,
-  resave: true
+  resave: true,
+  cookie: {
+    maxAge: 36000000,
+    httpOnly: false // <- set httpOnly to false
+  }
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
