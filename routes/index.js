@@ -95,7 +95,7 @@ router.get('/checkouts/:id', function (req, res) {
 });
 
 
-router.post('/checkouts/new', async (req, res) => {  
+router.post('/checkouts', (req, res) => {  
     const amount = req.session.amount; 
     var transactionErrors;
     var nonce = req.body.payment_method_nonce;
