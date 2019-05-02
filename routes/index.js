@@ -10,6 +10,7 @@ const url = require('url');
 const querystring = require('querystring');
 var FormData = require('form-data');
 const fetch = require("node-fetch");
+var session = require('express-session');
 
 var TRANSACTION_SUCCESS_STATUSES = [
   braintree.Transaction.Status.Authorizing,
@@ -53,13 +54,10 @@ function createResultObject(transaction) {
   return result;
 }
 
-router.get('/', function (req, res) {
-    console.log("!!!!!This is the main target query " + req.query.target);
-    res.redirect('/checkouts/new?target=' + req.query.target);
-});
 
 
-router.get('/checkouts/new', (req, res) => {  
+
+router.get('/', function (req, res, next) {  
       var scrambledAmount = req.query.target;    
       var form = new FormData();    
       form.append('amount', scrambledAmount);
@@ -69,14 +67,20 @@ router.get('/checkouts/new', (req, res) => {
         const json = await response.json();
           console.log(json);
         amount =  json;
+        req.session.amount = amount;
       })();
-  
+        
     
+    res.redirect('/checkouts/new');
+});
+
+
+router.get('/checkouts/new', (req, res) => {   
   gateway.clientToken.generate({}, function (err, response) {
     res.render('checkouts/new', {
         clientToken: response.clientToken, 
         messages: req.flash('error'), 
-        amount: amount
+        amount: req.amount
     });
   });     
 });
@@ -94,15 +98,16 @@ router.get('/checkouts/:id', function (req, res) {
 
 
 router.post('/checkouts/new', async (req, res) => {  
-
-  var scrambledAmount = req.query.target;    
-  var form = new FormData();    
-  form.append('amount', scrambledAmount);
-    
-  const unscrambleAmount = async () => {
-    const response = await fetch('https://www.vetfriends.com/catalog/amtDS.cfm', { method: 'POST', body: form });
-    const amount = await response.json();
-    console.log('!!!!!!!!!!!!!This is the amount from the async function ' + amount);
+  var amount = req.session.amount;
+  req.session.valid = null;
+//  var scrambledAmount = req.query.target;    
+//  var form = new FormData();    
+//  form.append('amount', scrambledAmount);
+//    
+//  const unscrambleAmount = async () => {
+//    const response = await fetch('https://www.vetfriends.com/catalog/amtDS.cfm', { method: 'POST', body: form });
+//    const amount = await response.json();
+//    console.log('!!!!!!!!!!!!!This is the amount from the async function ' + amount);
       
     var transactionErrors;
 //    var amount = amount; 
@@ -123,8 +128,8 @@ router.post('/checkouts/new', async (req, res) => {
         res.redirect('checkouts/new');
       }
     });
-  };
+  });
         
-});
+//});
 
 module.exports = router;

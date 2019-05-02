@@ -43,11 +43,12 @@ block content
 
           // Add the nonce to the form and submit
           document.querySelector('#nonce').value = payload.nonce;
+          window.history.pushState({}, document.title, "/checkouts/new");
           form.submit();
         });
       });
     });
     
-    window.history.pushState({}, document.title, "/checkouts/new");
+    
     
    
