@@ -70,7 +70,7 @@ router.get('/', function (req, res) {
     next()
     
     console.log("!!!!!This is the main target query " + req.query.target);
-    res.redirect('/checkouts/new?target=' + req.query.target);
+    res.redirect('/checkouts/new');
 });
 
 
