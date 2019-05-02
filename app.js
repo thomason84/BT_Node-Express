@@ -11,12 +11,6 @@ var session = require('express-session');
 var flash = require('connect-flash');
 
 
-const rp = require('request-promise');
-var request = require('request'); 
-const url = require('url');  
-const querystring = require('querystring');
-var FormData = require('form-data');
-const fetch = require("node-fetch");
 
 
 var routes = require('./routes/index');
@@ -108,6 +102,7 @@ app.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
     error: {}
   });
 });
+
 
 
 module.exports = app;
